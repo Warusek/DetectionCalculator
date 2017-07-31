@@ -14,10 +14,10 @@ public class Particle {
 	double detectorSize, detectorFreeSpaceHigh;
 
 	// in MeV
-	double[] energy = { 4.5, 4.2, 4.0, 3.7, 3.3, 2.9, 2.4, 2.0, 1.6, 1.0 };
+	double[] energy = { 4.50, 4.24, 3.96, 3.68, 3.37, 3.05, 2.74, 2.42, 2.04, 1.25};
 	// in microns
-	double[] minimumDistanceTravelledInArgonToDetected = { 10000, 9000, 8000, 7000, 6000, 5000, 4000, 3000, 2000,
-			1000 };
+	double[] minimumDistanceTravelledInArgonToDetected = { 9930.0, 9560.0, 9225.0, 9090.0, 8333.0, 7813.0, 7421.0,
+			6849.0, 6289.0, 5370.0};
 	double distanceInArgon = 0.0, distanceTravelledInArgon;
 
 	boolean exitCube = true;
@@ -52,14 +52,14 @@ public class Particle {
 		particleStartingCoor[2] = particleCoor[2];
 	}
 
-	private void printCoordinates() {
-		System.out.println("Startowe koordynaty: {" + particleStartingCoor[0] + ", " + particleStartingCoor[1] + ", "
-				+ particleStartingCoor[2] + "}. Koñcowe koordynaty: {" + particleCoor[0] + ", " + particleCoor[1] + ", "
-				+ particleCoor[2] + "}. \n Energia po przejœciu przez próbkê: " + energyOfParticle
-				+ "MeV, po przejœciu w próbce " + distanceTravelled + ". W Argonie przesz³a: "
-				+ distanceTravelledInArgon);
-
-	}
+//	private void printCoordinates() {
+//		System.out.println("Startowe koordynaty: {" + particleStartingCoor[0] + ", " + particleStartingCoor[1] + ", "
+//				+ particleStartingCoor[2] + "}. Koñcowe koordynaty: {" + particleCoor[0] + ", " + particleCoor[1] + ", "
+//				+ particleCoor[2] + "}. \n Energia po przejœciu przez próbkê: " + energyOfParticle
+//				+ "MeV, po przejœciu w próbce " + distanceTravelled + ". W Argonie przesz³a: "
+//				+ distanceTravelledInArgon);
+//
+//	}
 
 	private void flyInRandomDirection() {
 		double horizontalAngle = random.nextDouble() * 2 * Math.PI;
@@ -96,9 +96,7 @@ public class Particle {
 	}
 
 	private void checkIfDetected() {
-		// if (distanceTravelled < max && distanceTravelled >= min)
-		// DataLoader.addNumberOfDetected();
-		if (distanceTravelled < max && distanceTravelled >= min) {
+		if (distanceTravelled < max && distanceTravelled > min) {
 			checEnergyOfParticleAfterSampleExit();
 			checkTravelThroughArgon();
 			if (exitCube == false)
@@ -123,7 +121,6 @@ public class Particle {
 		distanceTravelledInArgon = (Math.sqrt(Math.pow(particleCoor[0] - particleStartingArgonCoor[0], 2)
 				+ Math.pow(particleCoor[1] - particleStartingArgonCoor[1], 2)
 				+ Math.pow(particleCoor[2] - particleStartingArgonCoor[2], 2))) * 10000;
-
 
 		if (distanceTravelledInArgon >= distanceInArgon)
 			exitCube = false;
